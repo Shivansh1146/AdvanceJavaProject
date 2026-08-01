@@ -1,10 +1,9 @@
 package com.project.collegeproject.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.project.collegeproject.enums.Status;
+import com.project.collegeproject.enums.Type;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,6 +25,10 @@ public class CollegeEntity {
     private String collegeEmail;
     private String collegePhoneNumber;
     private String collegeAddress;
-    private Date StartDate;
+    @Enumerated(value = EnumType.STRING)
+    private Type collegeType;
+    @Enumerated(value = EnumType.STRING)
+    private Status collegeStatus;
+    private Date startDate;
 
 }

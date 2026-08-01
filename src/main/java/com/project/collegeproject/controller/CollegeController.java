@@ -24,7 +24,7 @@ public class CollegeController {
     }
 
     @GetMapping("/getCollegeByName")
-    public ResponseEntity<CollegeEntity> getCollegeByName(@RequestBody String collegeName) {
+    public ResponseEntity<CollegeEntity> getCollegeByName(@RequestParam String collegeName) {
         return ResponseEntity.ok(collegeService.getCollegeByName(collegeName));
     }
 
@@ -34,7 +34,7 @@ public class CollegeController {
     }
 
     @GetMapping("/getCollegeByPhoneNumber")
-    public ResponseEntity<CollegeEntity> getCollegeByPhoneNumber(@RequestBody String collegePhoneNumber) {
+    public ResponseEntity<CollegeEntity> getCollegeByPhoneNumber(@RequestParam String collegePhoneNumber) {
         return ResponseEntity.ok(collegeService.getCollegeByPhoneNumber(collegePhoneNumber));
     }
 
