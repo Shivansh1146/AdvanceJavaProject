@@ -19,27 +19,27 @@ public class CollegeController {
     }
 
     @GetMapping("/getCollegeByCode/{collegeCode}")
-    public ResponseEntity<CollegeEntity> getCollegeByCode(@PathVariable String collegeCode) {
+    public ResponseEntity<List<CollegeEntity>> getCollegeByCode(@PathVariable String collegeCode) {
         return ResponseEntity.ok(collegeService.getCollegeByCode(collegeCode));
     }
 
     @GetMapping("/getCollegeByName")
-    public ResponseEntity<CollegeEntity> getCollegeByName(@RequestParam String collegeName) {
+    public ResponseEntity<List<CollegeEntity>> getCollegeByName(@RequestParam String collegeName) {
         return ResponseEntity.ok(collegeService.getCollegeByName(collegeName));
     }
 
     @GetMapping("/getCollegeByEmail/{collegeEmail}")
-    public ResponseEntity<CollegeEntity> getCollegeByEmail(@PathVariable String collegeEmail) {
+    public ResponseEntity<List<CollegeEntity>> getCollegeByEmail(@PathVariable String collegeEmail) {
         return ResponseEntity.ok(collegeService.getCollegeByEmail(collegeEmail));
     }
 
     @GetMapping("/getCollegeByPhoneNumber")
-    public ResponseEntity<CollegeEntity> getCollegeByPhoneNumber(@RequestParam String collegePhoneNumber) {
+    public ResponseEntity<List<CollegeEntity>> getCollegeByPhoneNumber(@RequestParam String collegePhoneNumber) {
         return ResponseEntity.ok(collegeService.getCollegeByPhoneNumber(collegePhoneNumber));
     }
 
     @GetMapping("/getCollegeByAddress/{collegeAddress}")
-    public ResponseEntity<CollegeEntity> getCollegeByAddress(@PathVariable String collegeAddress) {
+    public ResponseEntity<List<CollegeEntity>> getCollegeByAddress(@PathVariable String collegeAddress) {
         return ResponseEntity.ok(collegeService.getCollegeByAddress(collegeAddress));
     }
 
