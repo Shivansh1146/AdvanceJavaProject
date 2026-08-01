@@ -57,6 +57,11 @@ public class CollegeController {
 
     @PostMapping("/addCollege")
     public ResponseEntity<String> addCollege(@RequestBody CollegeEntity collegeEntity) {
-        return ResponseEntity.status(201).body(collegeService.addCollege(collegeEntity));
+        String response = collegeService.addCollege(collegeEntity);
+        if (response.equals("Congrats !! Your College  is saved")) {
+            return ResponseEntity.status(201).body(response);
+        }
+        return ResponseEntity.badRequest().body(response);
+
     }
 }

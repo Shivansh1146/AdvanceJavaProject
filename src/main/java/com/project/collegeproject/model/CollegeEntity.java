@@ -20,15 +20,29 @@ public class CollegeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
+
+    @Column(nullable = false)
     private String collegeCode;
+
+    @Column(nullable = false)
     private String collegeName;
+
+    @Column(nullable = false)
     private String collegeEmail;
+
+    @Column(nullable = false)
     private String collegePhoneNumber;
+
+    @Column(nullable = false)
     private String collegeAddress;
+
+    @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private Type collegeType;
+
+    @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private Status collegeStatus;
-    private Date startDate;
 
+    private Date startDate;
 }

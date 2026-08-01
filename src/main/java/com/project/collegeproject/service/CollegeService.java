@@ -72,6 +72,9 @@ public class CollegeService {
     }
 
     public String addCollege(CollegeEntity collegeEntity) {
+        if (ObjectUtils.isEmpty(collegeEntity)) {
+            return "Invalid College";
+        }
         if (StringUtils.isBlank(collegeEntity.getCollegeCode()) || !collegeEntity.getCollegeCode().matches("^[a-zA-Z0-9]+$")) {
             return "Invalid College Code";
         }
@@ -92,9 +95,6 @@ public class CollegeService {
         }
         if (ObjectUtils.isEmpty(collegeEntity.getCollegeStatus())) {
             return "Invalid College Status";
-        }
-        if (ObjectUtils.isEmpty(collegeEntity)) {
-            return "Invalid College";
         }
         collegeEntity.setStartDate(new Date());
         collegeRepository.save(collegeEntity);
