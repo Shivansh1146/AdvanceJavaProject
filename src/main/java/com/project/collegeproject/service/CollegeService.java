@@ -1,5 +1,7 @@
 package com.project.collegeproject.service;
 
+import com.project.collegeproject.enums.Status;
+import com.project.collegeproject.enums.Type;
 import com.project.collegeproject.model.CollegeEntity;
 import com.project.collegeproject.repository.CollegeRepository;
 
@@ -53,6 +55,20 @@ public class CollegeService {
             return null;
         }
         return collegeRepository.findByCollegeAddress(collegeAddress);
+    }
+
+    public List<CollegeEntity> getCollegeByType(Type collegeType) {
+        if (ObjectUtils.isEmpty(collegeType)) {
+            return null;
+        }
+        return collegeRepository.findByCollegeType(collegeType);
+    }
+
+    public List<CollegeEntity> getCollegeByStatus(Status collegeStatus) {
+        if (ObjectUtils.isEmpty(collegeStatus)) {
+            return null;
+        }
+        return collegeRepository.findByCollegeStatus(collegeStatus);
     }
 
     public String addCollege(CollegeEntity collegeEntity) {

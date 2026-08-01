@@ -1,5 +1,7 @@
 package com.project.collegeproject.controller;
 
+import com.project.collegeproject.enums.Status;
+import com.project.collegeproject.enums.Type;
 import com.project.collegeproject.model.CollegeEntity;
 import com.project.collegeproject.service.CollegeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +45,15 @@ public class CollegeController {
         return ResponseEntity.ok(collegeService.getCollegeByAddress(collegeAddress));
     }
 
+    @GetMapping("/getCollegeByType")
+    public ResponseEntity<List<CollegeEntity>> getCollegeByType(@RequestParam Type collegeType) {
+        return ResponseEntity.ok(collegeService.getCollegeByType(collegeType));
+    }
+
+    @GetMapping("/getCollegeByStatus")
+    public ResponseEntity<List<CollegeEntity>> getCollegeByStatus(@RequestParam Status collegeStatus) {
+        return ResponseEntity.ok(collegeService.getCollegeByStatus(collegeStatus));
+    }
 
     @PostMapping("/addCollege")
     public ResponseEntity<String> addCollege(@RequestBody CollegeEntity collegeEntity) {
