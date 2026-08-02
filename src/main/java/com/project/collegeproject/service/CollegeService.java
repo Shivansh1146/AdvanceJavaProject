@@ -10,7 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+//import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -106,7 +106,7 @@ public class CollegeService {
         if (ObjectUtils.isEmpty(collegeEntity.getCollegeStatus())) {
             return "Invalid College Status";
         }
-        collegeEntity.setStartDate(new Date());
+//        collegeEntity.setStartDate(new Date());
         collegeRepository.save(collegeEntity);
         return "Congrats !! Your College is saved";
     }
