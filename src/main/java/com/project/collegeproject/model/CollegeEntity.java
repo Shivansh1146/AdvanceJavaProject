@@ -21,16 +21,16 @@ public class CollegeEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String collegeCode;
 
     @Column(nullable = false)
     private String collegeName;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String collegeEmail;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true, length = 10)
     private String collegePhoneNumber;
 
     @Column(nullable = false)

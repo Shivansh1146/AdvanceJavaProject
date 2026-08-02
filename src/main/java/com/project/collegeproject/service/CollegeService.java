@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CollegeService {
@@ -22,9 +23,9 @@ public class CollegeService {
         return collegeRepository.findAll();
     }
 
-    public List<CollegeEntity> getCollegeByCode(String collegeCode) {
+    public Optional<CollegeEntity> getCollegeByCode(String collegeCode) {
         if (StringUtils.isBlank(collegeCode)) {
-            return null;
+            return Optional.empty();
         }
         return collegeRepository.findByCollegeCode(collegeCode);
     }
@@ -36,16 +37,16 @@ public class CollegeService {
         return collegeRepository.findByCollegeName(collegeName);
     }
 
-    public List<CollegeEntity> getCollegeByEmail(String collegeEmail) {
+    public Optional<CollegeEntity> getCollegeByEmail(String collegeEmail) {
         if (StringUtils.isBlank(collegeEmail)) {
-            return null;
+            return Optional.empty();
         }
         return collegeRepository.findByCollegeEmail(collegeEmail);
     }
 
-    public List<CollegeEntity> getCollegeByPhoneNumber(String collegePhoneNumber) {
+    public Optional<CollegeEntity> getCollegeByPhoneNumber(String collegePhoneNumber) {
         if (StringUtils.isBlank(collegePhoneNumber)) {
-            return null;
+            return Optional.empty();
         }
         return collegeRepository.findByCollegePhoneNumber(collegePhoneNumber);
     }
@@ -78,14 +79,23 @@ public class CollegeService {
         if (StringUtils.isBlank(collegeEntity.getCollegeCode()) || !collegeEntity.getCollegeCode().matches("^[a-zA-Z0-9]+$")) {
             return "Invalid College Code";
         }
+        if (collegeRepository.findByCollegeCode(collegeEntity.getCollegeCode()).isPresent()) {
+            return "College Code  Already Exists";
+        }
         if (StringUtils.isBlank(collegeEntity.getCollegeName()) || !collegeEntity.getCollegeName().matches("^[a-zA-Z ]+$")) {
             return "Invalid College Name";
         }
         if (StringUtils.isBlank(collegeEntity.getCollegeEmail()) || !collegeEntity.getCollegeEmail().matches("^[a-zA-Z0-9]+@[a-zA-Z]+\\.[a-zA-Z]{2,}$")) {
             return "Invalid College Email";
         }
+        if (collegeRepository.findByCollegeEmail(collegeEntity.getCollegeEmail()).isPresent()) {
+            return "College Email  Already Exists";
+        }
         if (StringUtils.isBlank(collegeEntity.getCollegePhoneNumber()) || !collegeEntity.getCollegePhoneNumber().matches("^[6-9][0-9]{9}$")) {
             return "Invalid College Phone Number";
+        }
+        if (collegeRepository.findByCollegePhoneNumber(collegeEntity.getCollegePhoneNumber()).isPresent()) {
+            return "College Phone Number Already Exists";
         }
         if (StringUtils.isBlank(collegeEntity.getCollegeAddress()) || !collegeEntity.getCollegeAddress().matches("^[a-zA-Z0-9 ]+$")) {
             return "Invalid College Address";
@@ -98,6 +108,6 @@ public class CollegeService {
         }
         collegeEntity.setStartDate(new Date());
         collegeRepository.save(collegeEntity);
-        return "Congrats !! Your College  is saved";
+        return "Congrats !! Your College is saved";
     }
 }

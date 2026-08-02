@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class CollegeController {
@@ -21,7 +22,7 @@ public class CollegeController {
     }
 
     @GetMapping("/getCollegeByCode/{collegeCode}")
-    public ResponseEntity<List<CollegeEntity>> getCollegeByCode(@PathVariable String collegeCode) {
+    public ResponseEntity<Optional<CollegeEntity>> getCollegeByCode(@PathVariable String collegeCode) {
         return ResponseEntity.ok(collegeService.getCollegeByCode(collegeCode));
     }
 
@@ -31,12 +32,12 @@ public class CollegeController {
     }
 
     @GetMapping("/getCollegeByEmail/{collegeEmail}")
-    public ResponseEntity<List<CollegeEntity>> getCollegeByEmail(@PathVariable String collegeEmail) {
+    public ResponseEntity<Optional<CollegeEntity>> getCollegeByEmail(@PathVariable String collegeEmail) {
         return ResponseEntity.ok(collegeService.getCollegeByEmail(collegeEmail));
     }
 
     @GetMapping("/getCollegeByPhoneNumber")
-    public ResponseEntity<List<CollegeEntity>> getCollegeByPhoneNumber(@RequestParam String collegePhoneNumber) {
+    public ResponseEntity<Optional<CollegeEntity>> getCollegeByPhoneNumber(@RequestParam String collegePhoneNumber) {
         return ResponseEntity.ok(collegeService.getCollegeByPhoneNumber(collegePhoneNumber));
     }
 
@@ -58,10 +59,9 @@ public class CollegeController {
     @PostMapping("/addCollege")
     public ResponseEntity<String> addCollege(@RequestBody CollegeEntity collegeEntity) {
         String response = collegeService.addCollege(collegeEntity);
-        if (response.equals("Congrats !! Your College  is saved")) {
+        if (response.equals("Congrats !! Your College is saved")) {
             return ResponseEntity.status(201).body(response);
         }
         return ResponseEntity.badRequest().body(response);
-
     }
 }

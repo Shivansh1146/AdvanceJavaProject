@@ -7,16 +7,17 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface CollegeRepository extends JpaRepository<CollegeEntity, String> {
-    List<CollegeEntity> findByCollegeCode(String collegeCode);
+    Optional<CollegeEntity> findByCollegeCode(String collegeCode);
 
     List<CollegeEntity> findByCollegeName(String collegeName);
 
-    List<CollegeEntity> findByCollegeEmail(String collegeEmail);
+    Optional<CollegeEntity> findByCollegeEmail(String collegeEmail);
 
-    List<CollegeEntity> findByCollegePhoneNumber(String collegePhoneNumber);
+    Optional<CollegeEntity> findByCollegePhoneNumber(String collegePhoneNumber);
 
     List<CollegeEntity> findByCollegeAddress(String collegeAddress);
 
