@@ -16,6 +16,7 @@ import java.util.Date;
 
 @Data
 @AllArgsConstructor
+
 @NoArgsConstructor
 @Entity(name = "college_table")
 
