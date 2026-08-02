@@ -19,6 +19,7 @@ import java.util.Date;
 public class CollegeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "unique_id")
     private String id;
 
     @Column(nullable = false, unique = true)

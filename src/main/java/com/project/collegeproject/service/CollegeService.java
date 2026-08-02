@@ -89,7 +89,7 @@ public class CollegeService {
             return "Invalid College Email";
         }
         if (collegeRepository.findByCollegeEmail(collegeEntity.getCollegeEmail()).isPresent()) {
-            return "College Email  Already Exists";
+            return "College Email Already Exists";
         }
         if (StringUtils.isBlank(collegeEntity.getCollegePhoneNumber()) || !collegeEntity.getCollegePhoneNumber().matches("^[6-9][0-9]{9}$")) {
             return "Invalid College Phone Number";
