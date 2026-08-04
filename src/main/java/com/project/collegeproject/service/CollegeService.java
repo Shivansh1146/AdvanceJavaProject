@@ -2,7 +2,9 @@ package com.project.collegeproject.service;
 
 import com.project.collegeproject.enums.Status;
 import com.project.collegeproject.enums.Type;
+import com.project.collegeproject.model.AddressEntity;
 import com.project.collegeproject.model.CollegeEntity;
+import com.project.collegeproject.repository.AddressRepository;
 import com.project.collegeproject.repository.CollegeRepository;
 
 import org.apache.commons.lang3.ObjectUtils;
@@ -18,6 +20,8 @@ import java.util.Optional;
 public class CollegeService {
     @Autowired
     private CollegeRepository collegeRepository;
+    @Autowired
+    private AddressRepository addressRepository;
 
     public List<CollegeEntity> getAllColleges() {
         return collegeRepository.findAll();
@@ -51,11 +55,11 @@ public class CollegeService {
         return collegeRepository.findByCollegePhoneNumber(collegePhoneNumber);
     }
 
-    public List<CollegeEntity> getCollegeByAddress(String collegeAddress) {
-        if (StringUtils.isBlank(collegeAddress)) {
+    public List<AddressEntity> getCollegeByCity(String city) {
+        if (StringUtils.isBlank(city)) {
             return null;
         }
-        return collegeRepository.findByCollegeAddress(collegeAddress);
+        return addressRepository.findByCity(city);
     }
 
     public List<CollegeEntity> getCollegeByType(Type collegeType) {
@@ -74,7 +78,7 @@ public class CollegeService {
 
     public String addCollege(CollegeEntity collegeEntity) {
         if (ObjectUtils.isEmpty(collegeEntity)) {
-            return "Invalid College";
+            return "Invalid College, Please Write College Details";
         }
         if (StringUtils.isBlank(collegeEntity.getCollegeCode()) || !collegeEntity.getCollegeCode().matches("^[a-zA-Z0-9]+$")) {
             return "Invalid College Code";
@@ -97,8 +101,23 @@ public class CollegeService {
         if (collegeRepository.findByCollegePhoneNumber(collegeEntity.getCollegePhoneNumber()).isPresent()) {
             return "College Phone Number Already Exists";
         }
-        if (StringUtils.isBlank(collegeEntity.getCollegeAddress()) || !collegeEntity.getCollegeAddress().matches("^[a-zA-Z0-9 ]+$")) {
+        if (ObjectUtils.isEmpty(collegeEntity.getCollegeAddress())) {
+            return "Invalid Address, Please Write Address Details";
+        }
+        if (StringUtils.isBlank(collegeEntity.getCollegeAddress().getAddressLine_1())) {
             return "Invalid College Address";
+        }
+        if (StringUtils.isBlank(collegeEntity.getCollegeAddress().getCity()) || !collegeEntity.getCollegeAddress().getCity().matches("^[a-zA-Z ]+$")) {
+            return "Invalid City";
+        }
+        if (StringUtils.isBlank(collegeEntity.getCollegeAddress().getPinCode()) || !collegeEntity.getCollegeAddress().getPinCode().matches("^[a-zA-Z0-9]+$")) {
+            return "Invalid PinCode";
+        }
+        if (StringUtils.isBlank(collegeEntity.getCollegeAddress().getState()) || !collegeEntity.getCollegeAddress().getState().matches("^[a-zA-Z ]+$")) {
+            return "Invalid State";
+        }
+        if (StringUtils.isBlank(collegeEntity.getCollegeAddress().getCountry()) || !collegeEntity.getCollegeAddress().getCountry().matches("^[a-zA-Z ]+$")) {
+            return "Invalid Country";
         }
         if (ObjectUtils.isEmpty(collegeEntity.getCollegeType())) {
             return "Invalid College Type";
@@ -106,7 +125,9 @@ public class CollegeService {
         if (ObjectUtils.isEmpty(collegeEntity.getCollegeStatus())) {
             return "Invalid College Status";
         }
+
 //        collegeEntity.setStartDate(new Date());
+        addressRepository.save(collegeEntity.getCollegeAddress());
         collegeRepository.save(collegeEntity);
         return "Congrats !! Your College is saved";
     }

@@ -2,6 +2,7 @@ package com.project.collegeproject.controller;
 
 import com.project.collegeproject.enums.Status;
 import com.project.collegeproject.enums.Type;
+import com.project.collegeproject.model.AddressEntity;
 import com.project.collegeproject.model.CollegeEntity;
 import com.project.collegeproject.service.CollegeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,9 +42,9 @@ public class CollegeController {
         return ResponseEntity.ok(collegeService.getCollegeByPhoneNumber(collegePhoneNumber));
     }
 
-    @GetMapping("/getCollegeByAddress/{collegeAddress}")
-    public ResponseEntity<List<CollegeEntity>> getCollegeByAddress(@PathVariable String collegeAddress) {
-        return ResponseEntity.ok(collegeService.getCollegeByAddress(collegeAddress));
+    @GetMapping("/getCollegeByCity/{city}")
+    public ResponseEntity<List<AddressEntity>> getCollegeByCity(@PathVariable AddressEntity city) {
+        return ResponseEntity.ok(collegeService.getCollegeByCity(city.getCity()));
     }
 
     @GetMapping("/getCollegeByType")

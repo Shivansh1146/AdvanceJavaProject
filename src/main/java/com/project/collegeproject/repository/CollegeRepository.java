@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface CollegeRepository extends JpaRepository<CollegeEntity, String> {
+public interface CollegeRepository extends JpaRepository<CollegeEntity, Long> {
     Optional<CollegeEntity> findByCollegeCode(String collegeCode);
 
     List<CollegeEntity> findByCollegeName(String collegeName);
@@ -19,7 +19,7 @@ public interface CollegeRepository extends JpaRepository<CollegeEntity, String> 
 
     Optional<CollegeEntity> findByCollegePhoneNumber(String collegePhoneNumber);
 
-    List<CollegeEntity> findByCollegeAddress(String collegeAddress);
+//    List<CollegeEntity> findByCollegeAddress(String address); useless now
 
     List<CollegeEntity> findByCollegeType(Type collegeType);
 

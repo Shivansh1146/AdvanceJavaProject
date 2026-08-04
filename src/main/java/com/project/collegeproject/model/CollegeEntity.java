@@ -38,9 +38,6 @@ public class CollegeEntity {
     private String collegePhoneNumber;
 
     @Column(nullable = false)
-    private String collegeAddress;
-
-    @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private Type collegeType;
 
@@ -50,4 +47,8 @@ public class CollegeEntity {
 
     @CreatedDate
     private Date startDate;
+
+    @OneToOne
+    @JoinColumn(name = "address_id", nullable = false)
+    private AddressEntity collegeAddress;
 }
