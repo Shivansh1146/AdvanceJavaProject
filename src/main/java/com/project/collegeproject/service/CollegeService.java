@@ -2,9 +2,7 @@ package com.project.collegeproject.service;
 
 import com.project.collegeproject.enums.Status;
 import com.project.collegeproject.enums.Type;
-import com.project.collegeproject.model.AddressEntity;
 import com.project.collegeproject.model.CollegeEntity;
-import com.project.collegeproject.repository.AddressRepository;
 import com.project.collegeproject.repository.CollegeRepository;
 
 import org.apache.commons.lang3.ObjectUtils;
@@ -20,8 +18,8 @@ import java.util.Optional;
 public class CollegeService {
     @Autowired
     private CollegeRepository collegeRepository;
-    @Autowired
-    private AddressRepository addressRepository;
+//    @Autowired
+//    private AddressRepository addressRepository;
 
     public List<CollegeEntity> getAllColleges() {
         return collegeRepository.findAll();
@@ -55,11 +53,32 @@ public class CollegeService {
         return collegeRepository.findByCollegePhoneNumber(collegePhoneNumber);
     }
 
-    public List<AddressEntity> getCollegeByCity(String city) {
+    public List<CollegeEntity> getCollegeByPinCode(String pinCode) {
+        if (StringUtils.isBlank(pinCode)) {
+            return null;
+        }
+        return collegeRepository.findByCollegeAddress_PinCode(pinCode);
+    }
+
+    public List<CollegeEntity> getCollegeByCity(String city) {
         if (StringUtils.isBlank(city)) {
             return null;
         }
-        return addressRepository.findByCity(city);
+        return collegeRepository.findByCollegeAddress_City(city);
+    }
+
+    public List<CollegeEntity> getCollegeByState(String state) {
+        if (StringUtils.isBlank(state)) {
+            return null;
+        }
+        return collegeRepository.findByCollegeAddress_State(state);
+    }
+
+    public List<CollegeEntity> getCollegeByCountry(String country) {
+        if (StringUtils.isBlank(country)) {
+            return null;
+        }
+        return collegeRepository.findByCollegeAddress_Country(country);
     }
 
     public List<CollegeEntity> getCollegeByType(Type collegeType) {
@@ -84,7 +103,7 @@ public class CollegeService {
             return "Invalid College Code";
         }
         if (collegeRepository.findByCollegeCode(collegeEntity.getCollegeCode()).isPresent()) {
-            return "College Code  Already Exists";
+            return "College Code Already Exists";
         }
         if (StringUtils.isBlank(collegeEntity.getCollegeName()) || !collegeEntity.getCollegeName().matches("^[a-zA-Z ]+$")) {
             return "Invalid College Name";
@@ -101,11 +120,17 @@ public class CollegeService {
         if (collegeRepository.findByCollegePhoneNumber(collegeEntity.getCollegePhoneNumber()).isPresent()) {
             return "College Phone Number Already Exists";
         }
+        if (ObjectUtils.isEmpty(collegeEntity.getCollegeType())) {
+            return "Invalid College Type";
+        }
+        if (ObjectUtils.isEmpty(collegeEntity.getCollegeStatus())) {
+            return "Invalid College Status";
+        }
         if (ObjectUtils.isEmpty(collegeEntity.getCollegeAddress())) {
             return "Invalid Address, Please Write Address Details";
         }
         if (StringUtils.isBlank(collegeEntity.getCollegeAddress().getAddressLine_1())) {
-            return "Invalid College Address";
+            return "Invalid College AddressLine1";
         }
         if (StringUtils.isBlank(collegeEntity.getCollegeAddress().getCity()) || !collegeEntity.getCollegeAddress().getCity().matches("^[a-zA-Z ]+$")) {
             return "Invalid City";
@@ -119,15 +144,9 @@ public class CollegeService {
         if (StringUtils.isBlank(collegeEntity.getCollegeAddress().getCountry()) || !collegeEntity.getCollegeAddress().getCountry().matches("^[a-zA-Z ]+$")) {
             return "Invalid Country";
         }
-        if (ObjectUtils.isEmpty(collegeEntity.getCollegeType())) {
-            return "Invalid College Type";
-        }
-        if (ObjectUtils.isEmpty(collegeEntity.getCollegeStatus())) {
-            return "Invalid College Status";
-        }
 
 //        collegeEntity.setStartDate(new Date());
-        addressRepository.save(collegeEntity.getCollegeAddress());
+//        addressRepository.save(collegeEntity.getCollegeAddress());
         collegeRepository.save(collegeEntity);
         return "Congrats !! Your College is saved";
     }

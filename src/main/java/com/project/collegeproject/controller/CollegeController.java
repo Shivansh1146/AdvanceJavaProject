@@ -2,7 +2,6 @@ package com.project.collegeproject.controller;
 
 import com.project.collegeproject.enums.Status;
 import com.project.collegeproject.enums.Type;
-import com.project.collegeproject.model.AddressEntity;
 import com.project.collegeproject.model.CollegeEntity;
 import com.project.collegeproject.service.CollegeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,10 +40,21 @@ public class CollegeController {
     public ResponseEntity<Optional<CollegeEntity>> getCollegeByPhoneNumber(@RequestParam String collegePhoneNumber) {
         return ResponseEntity.ok(collegeService.getCollegeByPhoneNumber(collegePhoneNumber));
     }
-
+    @GetMapping("/getCollegeByPinCode")
+    public ResponseEntity<List<CollegeEntity>> getCollegeByPinCode(@RequestParam String pinCode){
+        return ResponseEntity.ok(collegeService.getCollegeByPinCode(pinCode));
+    }
     @GetMapping("/getCollegeByCity/{city}")
-    public ResponseEntity<List<AddressEntity>> getCollegeByCity(@PathVariable AddressEntity city) {
-        return ResponseEntity.ok(collegeService.getCollegeByCity(city.getCity()));
+    public ResponseEntity<List<CollegeEntity>> getCollegeByCity(@PathVariable String city) {
+        return ResponseEntity.ok(collegeService.getCollegeByCity(city));
+    }
+    @GetMapping("/getCollegeByState")
+    public ResponseEntity<List<CollegeEntity>> getCollegeByState(@RequestParam String state){
+        return ResponseEntity.ok(collegeService.getCollegeByState(state));
+    }
+    @GetMapping("/getCollegeByCountry")
+    public ResponseEntity<List<CollegeEntity>> getCollegeByCountry(@RequestParam String country){
+        return ResponseEntity.ok(collegeService.getCollegeByCountry(country));
     }
 
     @GetMapping("/getCollegeByType")

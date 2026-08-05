@@ -48,7 +48,7 @@ public class CollegeEntity {
     @CreatedDate
     private Date startDate;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", nullable = false)
     private AddressEntity collegeAddress;
 }
