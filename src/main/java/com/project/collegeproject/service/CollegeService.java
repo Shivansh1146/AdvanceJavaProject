@@ -88,6 +88,20 @@ public class CollegeService {
         return collegeRepository.findByCollegeAddress_PinCodeAndCollegeAddress_Country(pinCode, country);
     }
 
+    public List<CollegeEntity> getCollegeByPinCodeAndCollegeType(String pinCode, Type collegeType) {
+        if (StringUtils.isBlank(pinCode) || ObjectUtils.isEmpty(collegeType)) {
+            return null;
+        }
+        return collegeRepository.findByCollegeAddress_PinCodeAndCollegeType(pinCode, collegeType);
+    }
+
+    public List<CollegeEntity> getCollegeByPinCodeAndCollegeTypeAndCollegeStatus(String pinCode, Type collegeType, Status collegeStatus) {
+        if (StringUtils.isBlank(pinCode) || ObjectUtils.isEmpty(collegeType) || ObjectUtils.isEmpty(collegeStatus)) {
+            return null;
+        }
+        return collegeRepository.findByCollegeAddress_PinCodeAndCollegeTypeAndCollegeStatus(pinCode, collegeType, collegeStatus);
+    }
+
     public List<CollegeEntity> getCollegeByType(Type collegeType) {
         if (ObjectUtils.isEmpty(collegeType)) {
             return null;

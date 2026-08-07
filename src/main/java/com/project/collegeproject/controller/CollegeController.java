@@ -66,6 +66,18 @@ public class CollegeController {
         return ResponseEntity.ok(collegeService.getCollegeByPinCodeAndCountry(pinCode, country));
     }
 
+    @GetMapping("/getCollegeByPinCodeAndCollegeType")
+    public ResponseEntity<List<CollegeEntity>> getCollegeByPinCodeAndCollegeType(@RequestParam String pinCode, @RequestParam Type collegeType) {
+        return ResponseEntity.ok(collegeService.getCollegeByPinCodeAndCollegeType(pinCode, collegeType));
+    }
+
+    @GetMapping("/getCollegeByPinCodeAndCollegeTypeAndCollegeStatus")
+    public ResponseEntity<List<CollegeEntity>> getCollegeByPinCodeAndCollegeTypeAndCollegeStatus(@RequestParam String pinCode,
+                                                                                                 @RequestParam Type collegeType,
+                                                                                                 @RequestParam Status collegeStatus) {
+        return ResponseEntity.ok(collegeService.getCollegeByPinCodeAndCollegeTypeAndCollegeStatus(pinCode, collegeType, collegeStatus));
+    }
+
     @GetMapping("/getCollegeByType")
     public ResponseEntity<List<CollegeEntity>> getCollegeByType(@RequestParam Type collegeType) {
         return ResponseEntity.ok(collegeService.getCollegeByType(collegeType));
