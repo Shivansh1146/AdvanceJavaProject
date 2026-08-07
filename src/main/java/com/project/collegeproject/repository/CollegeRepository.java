@@ -27,7 +27,6 @@ public interface CollegeRepository extends JpaRepository<CollegeEntity, Long> {
     List<CollegeEntity> findByCollegeStatus(Status collegeStatus);
 
 
-
     List<CollegeEntity> findByCollegeAddress_City(String city);
 
     List<CollegeEntity> findByCollegeAddress_PinCode(String pinCode);
@@ -35,4 +34,6 @@ public interface CollegeRepository extends JpaRepository<CollegeEntity, Long> {
     List<CollegeEntity> findByCollegeAddress_State(String state);
 
     List<CollegeEntity> findByCollegeAddress_Country(String country);
+
+    List<CollegeEntity> findByCollegeAddress_PinCodeAndCollegeAddress_Country(String pinCode, String country);
 }

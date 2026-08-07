@@ -81,6 +81,13 @@ public class CollegeService {
         return collegeRepository.findByCollegeAddress_Country(country);
     }
 
+    public List<CollegeEntity> getCollegeByPinCodeAndCountry(String pinCode, String country) {
+        if (StringUtils.isBlank(pinCode) || StringUtils.isBlank(country)) {
+            return null;
+        }
+        return collegeRepository.findByCollegeAddress_PinCodeAndCollegeAddress_Country(pinCode, country);
+    }
+
     public List<CollegeEntity> getCollegeByType(Type collegeType) {
         if (ObjectUtils.isEmpty(collegeType)) {
             return null;
