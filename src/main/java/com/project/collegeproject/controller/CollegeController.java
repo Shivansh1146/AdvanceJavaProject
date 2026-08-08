@@ -96,4 +96,13 @@ public class CollegeController {
         }
         return ResponseEntity.badRequest().body(response);
     }
+
+    @DeleteMapping("/deleteCollege/{id}")
+    public ResponseEntity<String> deleteCollegeById(@PathVariable Long id) {
+        String response = collegeService.deleteCollegeById(id);
+        if (response.equals("college id is deleted Successfully")) {
+            return ResponseEntity.ok(response);
+        }
+        return ResponseEntity.badRequest().body(response);
+    }
 }

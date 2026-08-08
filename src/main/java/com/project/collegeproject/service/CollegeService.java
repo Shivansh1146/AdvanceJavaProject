@@ -168,7 +168,16 @@ public class CollegeService {
 
 //        collegeEntity.setStartDate(new Date());
 //        addressRepository.save(collegeEntity.getCollegeAddress());
+
         collegeRepository.save(collegeEntity);
         return "Congrats !! Your College is saved";
+    }
+    public String deleteCollegeById(Long id) {
+        Optional<CollegeEntity> checkId = collegeRepository.findById(id);
+        if (checkId.isEmpty()) {
+            return "College does not exist";
+        }
+        collegeRepository.deleteById(checkId.get().getId());
+        return "college id is deleted Successfully";
     }
 }
